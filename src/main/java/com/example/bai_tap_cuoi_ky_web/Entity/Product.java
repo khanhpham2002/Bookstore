@@ -14,7 +14,7 @@ public class Product {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "title")
+    @Column(name = "title",unique = true)
     private String title;
 
     @Lob
