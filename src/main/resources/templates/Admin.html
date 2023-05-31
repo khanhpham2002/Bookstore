@@ -60,12 +60,14 @@
           <td th:text="${o.sold} "></td>
           <td style="display:flex;margin-top: 38px;border: none;">
             <button th:if="${session.NAME.role==1}"><a th:href="@{/admin/edit/{id}(id=${o.id})}" class="edit" ><i class="material-icons">&#xE254;</i></a></button>
-            <button th:if="${session.NAME.role==1}"><a th:href="@{/admin/delete/{id}(id=${o.id})}" class="delete"><i class="material-icons" >&#xE872;</i></a></button>
+            <button th:if="${session.NAME.role==1}"
+                    th:onclick="'handleClick(\'' +${o.id} + '\');'"
+            ><a class="delete"><i class="material-icons" >&#xE872;</i></a></button>
           </td>
         </tr>
-      <div>
-      <tbody/>
-    <table/>
+      </div>
+      </tbody>
+    </table>
     <div class="clearfix">
       <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
       <ul class="pagination">
@@ -80,14 +82,12 @@
     </div>
   </div>
 </div>
-<!--<script>-->
-<!-- function handleClick() {-->
-<!--  if (confirm("Bạn có chắc muốn xóa sản phẩm này không") == true) {-->
-<!--    text = "You pressed OK!";-->
-<!--  } else {-->
-<!--    text = "You canceled!";-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
+<script>
+  const handleClick = (id) => {
+    if(window.confirm("Ban co chac muon xoa?")){
+       window.open(`http://localhost:8080/admin/delete/${id}`, "_self")
+    }
+  }
+</script>
 </body>
 </html>
