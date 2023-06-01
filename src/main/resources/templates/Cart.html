@@ -44,8 +44,8 @@
             </td>
             <td class="actions" data-th="">
               <div class="text-right">
-                <button class="btn btn-white border-secondary bg-white btn-md mb-2">
-                  <a th:href="@{/delete/{oid}(oid=${o.oid})}"><i class="fas fa-trash">delete</i></a>
+                <button class="btn btn-white border-secondary bg-white btn-md mb-2" th:onclick="'handleClick(\'' +${o.oid} + '\');'">
+                  <a ><i class="fas fa-trash">delete</i></a>
                 </button>
               </div>
             </td>
@@ -70,5 +70,12 @@
     </div>
   </div>
 </section>
+<script>
+  const handleClick = (oid) => {
+    if(window.confirm("Ban co chac muon xoa san pham nay khong?")){
+       window.open(`http://localhost:8080/delete/${oid}`, "_self")
+    }
+  }
+</script>
 </body>
 </html>
