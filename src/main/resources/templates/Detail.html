@@ -83,7 +83,7 @@
                     <dl class="param param-inline">
                       <dt>Quantity: </dt>
                       <dd>
-                        <input class="form-control form-control-sm" style="width:70px;" name="quantity">
+                        <input class="form-control form-control-sm" style="width:70px;" type="number" name="quantity" min="1">
                         <input type="hidden" name="productID" th:value="${id}">
                         <input th:if="${session.NAME!=null}" type="hidden" name="customerID" th:value="${session.NAME.userID}">
                       </dd>
