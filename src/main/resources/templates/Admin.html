@@ -31,7 +31,7 @@
           <h2>Products</h2>
         </div>
         <div class="col-sm-6">
-          <a th:href="@{/admin/add}" th:if="${session.NAME.role!=0}" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
+          <a th:href="@{/admin/add/{id}(id=-1)}" th:if="${session.NAME.role!=0}" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
           <td><h4 th:text="${o.price}"></h4></td>
           <td><h4 th:text="${o.sold}"></h4></td>
           <td style="display:flex;margin-top: 38px;border: none;">
-            <button th:if="${session.NAME.role==1}"><a th:href="@{/admin/edit/{id}(id=${o.id})}" class="edit" ><i class="material-icons">&#xE254;</i></a></button>
+            <button th:if="${session.NAME.role==1}"><a th:href="@{/admin/add/{id}(id=${o.id})}" class="edit" ><i class="material-icons">&#xE254;</i></a></button>
             <button th:if="${session.NAME.role==1}"
                     th:onclick="'handleClick(\'' +${o.id} + '\');'"
             ><a class="delete"><i class="material-icons" >&#xE872;</i></a></button>

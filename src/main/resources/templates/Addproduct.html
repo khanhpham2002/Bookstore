@@ -14,8 +14,9 @@
 <body>
 <div class="container">
     <a type="button" class="btn btn-primary" th:href="@{/home}">Back</a>
-    <h3>Thêm sản phẩm mới</h3>
-    <form th:object="${product}" th:method="POST" th:action="@{/admin/add}" enctype="multipart/form-data">
+    <h3 th:if="${res}<0">Thêm sản phẩm mới</h3>
+    <h3 th:if="${res}>0">Cập nhật sản phẩm</h3>
+    <form th:object="${product}" th:method="${res}<0?POST:PUT" th:action="@{/admin/add/{id}(id=${res})}" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-5">
 
@@ -47,25 +48,26 @@
                 </div>
                 <div class="form-group">
                     <label for="date">Ngày phát hành</label>
-                    <input type="text" class="form-control" required  name="price" id="date"
+                    <input type="date" class="form-control" required  name="price" id="date"
                            placeholder="Ngày phát hành" th:field="*{date}">
                 </div>
                 <div class="form-group">
                     <label for="description">Mô tả</label>
-                    <textarea class="form-control" rows="5" name="description" id="description" th:field="*{description}"></textarea>
+                    <textarea class="form-control" rows="5" required name="description" id="description" th:field="*{description}"></textarea>
                 </div>
             </div>
             <div class="col-sm-5">
                 <p>Hình Ảnh</p>
                 <div class="custom-file">
-                    <input type="file"  class="custom-file-input" name="productImage" accept="image/jpeg, image/png"  id="productImage"/>
+                    <input type="file" class="custom-file-input" name="productImage" accept="image/jpeg, image/png"  id="productImage"/>
                     <label class="custom-file-label" for="productImage">Choose file</label>
                 </div>
                 <div class="form-group">
-                    <img src="#" id="imgPreview" height="100px" width="100px" th:src="@{${'/images/' + product.image}}" style="margin-top: 20px" alt=" ">
+                    <img src="#" id="imgPreview" height="100px" width="100px"  th:src="@{${product.image}}" style="margin-top: 20px" alt=" ">
                 </div>
                 <input type="hidden" name="imgName" th:value="${product.image}">
-                <button type="submit" class="btn btn-primary">Thêm Mới</button>
+                <button type="submit" class="btn btn-primary" th:if="${res}<0">Thêm Mới</button>
+                <button type="submit" class="btn btn-primary" th:if="${res}>0">Cập nhật</button>
             </div>
         </div>
     </form>

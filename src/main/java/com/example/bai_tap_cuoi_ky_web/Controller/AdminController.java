@@ -45,14 +45,20 @@ public class AdminController {
         model.addAttribute("categories",serviceC.getCategorys());
         return "redirect:/admin";
     }
-    @GetMapping("/admin/add")
-    public String getAddProduct(Model model){
-        model.addAttribute("product",new Product());
+    @GetMapping("/admin/add/{id}")
+    public String getAddProduct(Model model,@PathVariable("id") int id){
+        if(id==-1){
+            model.addAttribute("product",new Product());
+        }
+        else {
+            model.addAttribute("product",serviceP.getProductById(id));
+        }
+        model.addAttribute("res",id);
         model.addAttribute("categories", serviceC.getCategorys());
         return "Addproduct";
     }
 
-    @PostMapping("/admin/add")
+    @PostMapping("/admin/add/{id}")
     public String postAddProduct(Model model,
                                  @ModelAttribute("product") Product product,
                                  @RequestParam("productImage") MultipartFile file,
@@ -75,14 +81,14 @@ public class AdminController {
         model.addAttribute("products",serviceP.getProducts());
         return "redirect:/admin";
     }
-    @GetMapping("/admin/edit/{id}")
-    public String getEditProduct(Model model,@PathVariable("id") int id){
-        model.addAttribute("product",serviceP.getProductById(id));
-        model.addAttribute("categories", serviceC.getCategorys());
-        return "Editproduct";
-    }
+//    @GetMapping("/admin/edit/{id}")
+//    public String getEditProduct(Model model,@PathVariable("id") int id){
+//        model.addAttribute("product",serviceP.getProductById(id));
+//        model.addAttribute("categories", serviceC.getCategorys());
+//        return "Editproduct";
+//    }
 
-    @PutMapping("admin/edit/{id}")
+    @PutMapping("admin/add/{id}")
     public String putEditProduct(Model model,
                                  @ModelAttribute("product") Product product,
                                  @RequestParam("productImage")MultipartFile file,
@@ -97,7 +103,12 @@ public class AdminController {
             else {
                 imageUUID=imgName;
             }
-            product.setImage("/css/images/"+imageUUID);
+            if(imageUUID.contains("css")){
+                product.setImage(imageUUID);
+            }
+            else {
+                product.setImage("/css/images/"+imageUUID);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
