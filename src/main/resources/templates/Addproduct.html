@@ -13,64 +13,80 @@
 </head>
 <body>
 <div class="container">
-    <a type="button" class="btn btn-primary" th:href="@{/home}">Back</a>
-    <h3 th:if="${res}<0">Thêm sản phẩm mới</h3>
-    <h3 th:if="${res}>0">Cập nhật sản phẩm</h3>
+
+
     <form th:object="${product}" th:method="${res}<0?POST:PUT" th:action="@{/admin/add/{id}(id=${res})}" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-sm-5">
+        <fieldset class="form-group">
+            <legend><h3 th:if="${res}<0">Thêm sách mới</h3></legend>
+            <legend><h3 th:if="${res}>0">Cập nhật sách</h3></legend>
+            <div class="row">
+                <div class="col-sm-5">
 
-                <div class="form-group">
-                    <label for="name">Tên</label>
-                    <input type="text" class="form-control" required name="name" id="name"
-                           placeholder="Tên sản phẩm" th:field="*{title}">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="form-group">
+                            <label for="name">Tên</label>
+                            <input type="text" class="form-control" required name="name" id="name"
+                                   placeholder="Tên sản phẩm" th:field="*{title}">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="author">Tác giả</label>
+                            <input type="text" class="form-control" required  name="name" id="author"
+                                   placeholder="Tên tác giả" th:field="*{author}">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Thể Loại</label>
+                        <select class="form-control" id="category" name="category" th:field="*{category.cid}">
+                            <option th:each="cate:${categories}"
+                                    th:value="${cate.cid}"
+                                    th:text="${cate.category}"
+                            >
+                        </select>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                        <div class="form-group">
+                            <label for="price">Giá</label>
+                            <input type="number" class="form-control" required  name="price" id="price"
+                                   placeholder="Giá bán ra" th:field="*{price}">
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Ngày phát hành</label>
+                            <input type="date" class="form-control" required  name="price" id="date"
+                                   placeholder="Ngày phát hành" th:field="*{date}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Mô tả</label>
+                        <textarea class="form-control" rows="5" required name="description" id="description" th:field="*{description}"></textarea>
+                    </div>
 
                 </div>
-                <div class="form-group">
-                    <label for="author">Tác giả</label>
-                    <input type="text" class="form-control" required  name="name" id="author"
-                           placeholder="Tên tác giả" th:field="*{author}">
+                <div class="col-sm-5">
+                    <label>Hình Ảnh</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="productImage" accept="image/jpeg, image/png"  id="productImage"/>
+                        <label class="custom-file-label" for="productImage">Choose file</label>
+                    </div>
+                    <div class="form-group" style="width: 100%; margin-top: 15px;">
+                        <img id="imgPreview"  style="width: 50%; !important"  th:src="@{${product.image}}"  alt="">
+                    </div>
+                    <input type="hidden" name="imgName" th:value="${product.image}">
 
-                </div>
-                <div class="form-group">
-                    <label for="category">Thể Loại</label>
-                    <select class="form-control" id="category" name="category" th:field="*{category.cid}">
-                        <option th:each="cate:${categories}"
-                                th:value="${cate.cid}"
-                                th:text="${cate.category}"
-                        >
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="price">Giá</label>
-                    <input type="number" class="form-control" required  name="price" id="price"
-                           placeholder="Giá bán ra" th:field="*{price}">
-                </div>
-                <div class="form-group">
-                    <label for="date">Ngày phát hành</label>
-                    <input type="date" class="form-control" required  name="price" id="date"
-                           placeholder="Ngày phát hành" th:field="*{date}">
-                </div>
-                <div class="form-group">
-                    <label for="description">Mô tả</label>
-                    <textarea class="form-control" rows="5" required name="description" id="description" th:field="*{description}"></textarea>
                 </div>
             </div>
-            <div class="col-sm-5">
-                <p>Hình Ảnh</p>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="productImage" accept="image/jpeg, image/png"  id="productImage"/>
-                    <label class="custom-file-label" for="productImage">Choose file</label>
-                </div>
-                <div class="form-group">
-                    <img src="#" id="imgPreview" height="100px" width="100px"  th:src="@{${product.image}}" style="margin-top: 20px" alt=" ">
-                </div>
-                <input type="hidden" name="imgName" th:value="${product.image}">
-                <button type="submit" class="btn btn-primary" th:if="${res}<0">Thêm Mới</button>
-                <button type="submit" class="btn btn-primary" th:if="${res}>0">Cập nhật</button>
+            <hr>
+            <div style="display: flex; justify-content: space-between;">
+                <a type="button" class="btn btn-secondary" th:href="@{/home}">Back</a>
+                <button type="submit" class="btn btn-success" th:if="${res}<0">Thêm Mới</button>
+                <button type="submit" class="btn btn-success" th:if="${res}>0">Cập nhật</button>
             </div>
-        </div>
+        </fieldset>
+
     </form>
+
 </div>
 
 
@@ -88,7 +104,7 @@
         if(input.files && input.files[0]){
             var reader = new FileReader();
             reader.onload = function(e){
-                $('#imgPreview').attr('src', e.target.result).width(100).height(100);
+                $('#imgPreview').attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0])
         }

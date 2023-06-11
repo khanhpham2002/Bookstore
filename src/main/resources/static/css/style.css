@@ -186,7 +186,7 @@ a .active{
     font-size: 18px;
     border: none;
     outline: none;
-    color: rgb(218, 200, 190);;
+    color: rgb(218, 200, 190);
     font-size: 3rem;
     cursor: pointer;
 
@@ -248,4 +248,31 @@ a .active{
 a, a:hover{
     cursor: pointer;
     text-decoration: none;
+}
+
+.param-inline, .dd {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.dd{
+    margin: 0 5px;
+}
+
+.card {
+    box-shadow: 3px 3px 3px 3px rgba(224, 224, 224, 0.52);
+}
+
+.comments_field {
+    overflow-y: scroll;
+    max-height: 230px;
+    padding: 15px;
+    background-color: rgba(52, 22, 16, 0.3);
+    border-radius: 5px;
+}
+.comment_submit{
+    margin-top: 15px;
+    padding: 15px;
+
 }
